@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modeles{% endblock %}
+
+{% block body %}
+
+<section class="mt-4 p-4 space-y-4">
+    <div>
+        <a href="{{ path('app_modeles_index') }}" class="w-[45px] h-[45px] bg-[#1e00ffe1] p-2 rounded-lg text-white"><i
+                class="fa-solid fa-arrow-left"></i></a>
+    </div>
+
+    <div>
+        <h1>Modeles</h1>
+
+        <table class="table">
+            <thead class="bg-[blue]">
+                <tr class="text-3xl text-white">
+                    <th>id</th>
+                    <th>saryurl</th>
+                    <th>nom</th>
+                    <th>details</th>
+                    <th>prix</th>
+                    <th>stock</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th>{{modele.id}}</th>
+                    <td>
+                        {% if modele.imageUrl %}
+                        <img src="{{ asset('uploads/' ~ modele.imageUrl) }}" alt="" class="w-[50px]">
+                        {% else %}
+                        tsy misy sary
+                        {% endif %}
+                    </td>
+                    <td>{{ modele.nom }}</td>
+                    <td>{{ modele.details }}</td>
+                    <td>{{ modele.prix }}</td>
+                    <td>{{ modele.stock }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</section>
+{% endblock %}

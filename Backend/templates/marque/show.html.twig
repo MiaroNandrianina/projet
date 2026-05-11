@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marque{% endblock %}
+
+{% block body %}
+
+<section class="mt-6 p-4 space-y-4">
+    <div>
+        <a href="{{ path('app_marque_index') }}" class="w-[45px] h-[45px] bg-[#1e00ffe1] p-2 rounded-lg text-white"><i class="fa-solid fa-arrow-left"></i></a>
+    </div>
+
+    <h1>Marque</h1>
+
+    <table class="table">
+        <thead class="bg-[blue]">
+            <tr class="text-white text-3xl">
+                <th>id</th>
+                <th>nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ marque.id }}</td>
+                <td>{{ marque.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+   
+</section>
+{% endblock %}

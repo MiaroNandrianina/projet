@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
 
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <section class="p-4">
+        <div>
+            <h1 class="text-center text-6xl">Admin</h1>
+        </div>
+    </section>
+
+    <header>
+        <div class="flex justify-between items-center p-4 bg-[#ecf4fa]">
+            <div class="navbar bg-base-100 shadow-sm">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </div>
+                        <ul tabindex="-1"
+                            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            <li><a>Dashboard</a></li>
+                            <li><a>Marque</a></li>
+                            <li><a>Modeles</a></li>
+                            <li><a>commandes</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-ghost text-xl">daisyUI</a>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="{{path('app_dashboard')}}">Dashboard</a></li>
+                        <li><a href="{{path('app_marque_index')}}">Marque</a></li>
+                        <li><a href="{{path('app_modeles_index')}}">Modeles</a></li>
+                        <li><a href="{{path('app_commande')}}">Commandes</a></li>
+                    </ul>
+                </div>
+
+                <div class="navbar-end">
+                    {% if app.user %}
+                    <div class="flex gap-2 items-center">
+                        <span>connecte: <strong>{{ app.user.nom }} Admin</strong></span>
+                        <a href="{{path('app_logout')}}" class="btn bg-[red] text-white">deconnexion</a>
+                    </div>
+                    {% else %}
+                    <a href="{{path('app_login')}}">connexion</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
         {% block body %}{% endblock %}
-    </body>
+    </main>
+    </div>
+
+
+    {% block javascripts %}
+
+    {% endblock %}
+</body>
+
 </html>

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+<div class="flex items-center justify-center bg-base-200 px-4">
+    <div class="max-w-md w-full bg-base-100 p-8 rounded-2xl shadow-xl border border-base-300">
+        
+        {# Flash Errors #}
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-error shadow-lg mb-6">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d=" humanitarian 10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{ flash_error }}</span>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-base-content">Reset your password</h1>
+            <p class="text-sm text-base-content/60 mt-2">🔑 Hanampy anao izahay hiditra amin'ny kaontinao indray.</p>
+        </div>
+
+        {{ form_start(requestForm, {'attr': {'class': 'space-y-6'}}) }}
+            
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Email Address</span>
+                </label>
+                {{ form_widget(requestForm.email, {
+                    'attr': {
+                        'class': 'input input-bordered input-primary w-full focus:outline-offset-2',
+                        'placeholder': 'ohatra@email.com'
+                    }
+                }) }}
+                <div class="mt-2 text-xs text-base-content/70 italic">
+                    Enter your email address, and we will send you a link to reset your password.
+                </div>
+                {# Asehoy ny erreur raha misy diso format ny email #}
+                <div class="text-error text-xs mt-1">
+                    {{ form_errors(requestForm.email) }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full shadow-md hover:shadow-lg transition-all duration-300">
+                Send password reset email
+            </button>
+
+        {{ form_end(requestForm) }}
+
+        <div class="mt-8 text-center">
+            <a href="{{ path('app_login') }}" class="link link-hover text-sm text-primary font-medium">
+                ← Back to Login
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

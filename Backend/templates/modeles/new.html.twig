@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Modeles{% endblock %}
+
+{% block body %}
+<section class="mt-4 p-2">
+
+
+    <div>
+        <a href="{{ path('app_modeles_index') }}" class="w-[45px] h-[45px] bg-[#1e00ffe1] p-2 rounded-lg text-white"><i
+                class="fa-solid fa-arrow-left"></i></a>
+    </div>
+
+    <div class="flex justify-between flex-col items-center mt-8">
+        <div class="card bg-[#0059ffd9] w-96 shadow-sm p-4 space-y-4">
+            <h1 class="text-3xl text-white">Ajouter nouveau modeles</h1>
+
+            {{ include('modeles/_form.html.twig') }}
+        </div>
+    </div>
+</section>
+{% endblock %}

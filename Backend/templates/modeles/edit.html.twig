@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Modeles{% endblock %}
+
+{% block body %}
+
+<section class="mt-8 p-4">
+    <div>
+        <a href="{{ path('app_modeles_index') }}" class="w-[45px] h-[45px] bg-[#1e00ffe1] p-2 rounded-lg text-white"><i
+                class="fa-solid fa-arrow-left"></i></a>
+    </div>
+
+    <div class="flex justify-between flex-col items-center mt-8">
+        <div class="card bg-[#0059ffd9] w-96 shadow-sm p-4 space-y-4">
+            <h1 class="text-white text-3xl">Edit Modeles</h1>
+
+            {{ include('modeles/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

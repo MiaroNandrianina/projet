@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+<div class="p-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-extrabold text-gray-800">Lisitry ny Kaomandy Miditra</h1>
+        <div class="badge badge-outline p-4 font-bold text-blue-600">
+            {{ commandes|length }} Kaomandy
+        </div>
+    </div>
+
+    <div class="overflow-x-auto bg-white rounded-xl shadow-md border border-gray-100">
+        <table class="table table-zebra w-full">
+            <thead class="bg-gray-50 text-gray-600">
+                <tr>
+                    <th class="py-4">ID</th>
+                    <th>Mpanjifa (User)</th>
+                    <th>Daty</th>
+                    <th>Total (Ar)</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                <tr class="hover:bg-blue-50 transition-colors">
+                    <td class="font-mono text-gray-400">#{{ commande.id }}</td>
+                    <td>
+                        <div class="font-bold text-gray-700">
+                            {# Mampiseho ny email na anaran'ny User #}
+                            {{ commande.user.nom }}
+                        </div>
+                    </td>
+                    <td class="text-sm">
+                        {{ commande.createdAt ? commande.createdAt|date('d/m/Y H:i') : '' }}
+                    </td>
+                    <td class="font-bold text-blue-600">
+                        {{ commande.total|number_format(0, '.', ' ') }} Ar
+                    </td>
+                    <td>
+                        {% if commande.status == 'Validé' %}
+                        <span class="badge badge-success text-white py-3 px-4">Validé</span>
+                        {% else %}
+                        <span class="badge badge-warning py-3 px-4">En attente</span>
+                        {% endif %}
+                    </td>
+                    <td class="flex justify-center gap-2">
+                        {% if commande.status != 'Validé' %}
+                        <form method="post" action="{{ path('app_commande_valider', {'id': commande.id}) }}"
+                            onsubmit="return confirm('Hovalidena tokoa ity kaomandy ity?')">
+                            <button class="btn btn-primary btn-sm rounded-lg shadow-sm hover:shadow-md transition-all">
+                                Valider
+                            </button>
+                        </form>
+                        {% else %}
+                        <button class="btn btn-ghost btn-sm text-green-600 cursor-default">
+                            <i class="fa-solid fa-check-double mr-1"></i> Vita
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-12">
+                        <div class="flex flex-col items-center opacity-30">
+                            <i class="fa-solid fa-box-open text-5xl mb-3"></i>
+                            <p class="text-xl">Tsy mbola misy kaomandy voaray.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

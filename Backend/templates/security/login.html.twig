@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+
+{# <div class="flex justify-center flex-col items-center mt-35">
+    <div class="card w-full shadow-sm p-4 max-w-lg bg-[#c1bcc2]">
+        <form method="post">
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
+            </div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input w-full mb-4"
+                autocomplete="email" required autofocus>
+            <label for="inputPassword">Password</label>
+            <input type="password" name="password" id="inputPassword" class="input w-full mb-4"
+                autocomplete="current-password" required>
+            <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
+                value="{{ csrf_token('authenticate') }}">
+
+           <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+            
+            <div class="mt-8">
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Sign in
+                </button>
+            </div>
+        </form>
+    </div>
+</div> #}
+<div class="flex items-center justify-center bg-base-200 p-4">
+    <div class="card w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card-body">
+            <div class="flex flex-col items-center mb-6">
+                <!-- Icon Admin kely -->
+                <div class="w-20 h-20 bg-primary text-primary-content rounded-full flex items-center justify-center mb-4 shadow-lg">
+                    <i class="fa-solid fa-user-shield text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-center text-primary">Admin Space</h1>
+                <p class="text-base-content/60 text-sm">Ampidiro ny mombamomba anao</p>
+            </div>
+
+            <form method="post">
+                {% if error %}
+                <div class="alert alert-error mb-4 shadow-sm py-2 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                </div>
+                {% endif %}
+
+                {# {% if app.user %}
+                <div class="alert alert-info mb-4 py-2 text-sm">
+                    <span>Efa tafiditra ianao: <strong>{{ app.user.userIdentifier }}</strong></span>
+                    <a href="{{ logout_path() }}" class="btn btn-xs btn-ghost underline">Hivoaka</a>
+                </div>
+                {% endif %} #}
+
+                <div class="form-control w-full">
+                    <label class="label" for="inputEmail">
+                        <span class="label-text font-semibold">Email</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-base-content/50">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" 
+                               class="input input-bordered w-full pl-10 focus:input-primary" 
+                               placeholder="admin@example.com" autocomplete="email" required autofocus>
+                    </div>
+                </div>
+
+                <div class="form-control w-full mt-4">
+                    <label class="label" for="inputPassword">
+                        <span class="label-text font-semibold">Password</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-base-content/50">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" name="password" id="inputPassword" 
+                               class="input input-bordered w-full pl-10 focus:input-primary" 
+                               placeholder="••••••••" autocomplete="current-password" required>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="flex items-center justify-between mt-6">
+                    <label class="label cursor-pointer flex gap-2">
+                        <input type="checkbox" name="_remember_me" class="checkbox checkbox-primary checkbox-sm" />
+                        <span class="label-text text-xs">Tsarovy aho</span>
+                    </label>
+                    <a href="{{path('app_forgot_password_request')}}" class="text-xs text-primary hover:underline font-medium">Password oublié?</a>
+                </div>
+
+                <div class="form-control mt-8">
+                    <button class="btn btn-primary w-full shadow-lg" type="submit">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i>
+                        connexion
+                    </button>
+                </div>
+            </form>
+            
+            {# <div class="mt-8 text-center">
+                <a href="http://localhost:5173" class="btn btn-link btn-xs text-base-content/40 no-underline hover:text-primary">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Hiverina any amin'ny Site
+                </a>
+            </div> #}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modeles index{% endblock %}
+
+{% block body %}
+
+<section class="mt-6 p-6 space-y-4">
+    <div class="p-4">
+        <h1>listes modeles</h1>
+        <div class="md:block overflow-x-auto">
+            <table class="table">
+                <thead class="bg-blue-700">
+                    <tr class="text-3xl text-white">
+                        <th>Id</th>
+                        <th>Image_Url</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Details</th>
+                        <th>Stock</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for modele in modeles %}
+                    <tr>
+                        <td>{{ modele.id }}</td>
+                        <td>
+                            {% if modele.imageUrl %}
+                            <img src="{{ asset('uploads/' ~ modele.imageUrl) }}" alt="" class="w-[50px]">
+                            {% else %}
+                            tsy misy sary
+                            {% endif %}
+                        </td>
+                        <td>{{ modele.nom }}</td>
+                        <td>{{ modele.prix }}</td>
+                        <td>{{ modele.details }}</td>
+                        <td>{{ modele.stock }}</td>
+                        <td>
+                            <div class="flex gap-2 items-center">
+                                <a href="{{ path('app_modeles_show', {'id': modele.id}) }}" class="w-[35px] h-[35px] bg-[#00b3ffd7] text-white p-2 rounded-lg"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ path('app_modeles_edit', {'id': modele.id}) }}" class="w-[35px] h-[35px] bg-[#ff5e00] text-white p-2 rounded-lg"><i class="fa-solid fa-pen"></i></a>
+                                {{ include('modeles/_delete_form.html.twig') }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <a href="{{ path('app_modeles_new') }}" class="w-[45px] h-[45px] p-2 bg-blue-500 text-white"><i
+                    class="fa-solid fa-plus"></i>Create</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

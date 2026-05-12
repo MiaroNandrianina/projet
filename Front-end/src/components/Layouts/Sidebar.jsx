@@ -33,10 +33,10 @@ function Sidebar() {
                         {location.pathname.replace("/", "").replace("-", " ")}
                     </div>
                     <div className="flex-none gap-2">
-                        <span className="text-sm font-medium mr-2">{user?.nom}</span>
+                        <span className="text-sm font-medium mr-2">{user?.username ? user.username.split('@')[0] : "Mpanjifa"}</span>
                         <div className="avatar placeholder">
-                            <div className="bg-primary text-white rounded-full w-8">
-                                <span className="text-xs">{user?.nom?.charAt(0)}</span>
+                            <div className="bg-primary text-black rounded-full w-8">
+                                <span className="text-xs">{user?.username ? user.username.split('@')[0] : "Mpanjifa"}</span>
                             </div>
                         </div>
                     </div>

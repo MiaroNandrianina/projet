@@ -47,6 +47,7 @@ function Navbar() {
                     </li>
                     <li><Link to="/Service" className="hover:text-[#2563eb] rounded-xl transition duration-200">Service</Link></li>
                     <li><Link to="/Apropos" className="hover:text-[#2563eb] rounded-xl transition duration-200">A propos</Link></li>
+                    <li><Link to="/contact" className="hover:text-[#2563eb] rounded-xl transition duration-200">Contact</Link></li>
                 </ul>
             </div>
 
@@ -71,9 +72,7 @@ function Navbar() {
                             to="/dashboard" 
                             className="btn btn-sm h-10 bg-[#2563eb] hover:bg-blue-700 text-white border-none rounded-full px-5 font-bold shadow-sm flex items-center gap-2"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                            </svg>
+                            
                             Dashboard
                         </Link>
 
@@ -81,11 +80,11 @@ function Navbar() {
                         <div className="hidden md:flex items-center gap-2 bg-gray-50 border border-gray-100 py-1 pl-1 pr-4 rounded-full">
                             <div className="avatar placeholder">
                                 <div className="bg-blue-100 text-[#2563eb] rounded-full w-8">
-                                    <span className="text-xs font-black">{user.nom?.charAt(0).toUpperCase()}</span>
+                                    <span className="text-xs font-black">{user.username?.charAt(0).toUpperCase()}</span>
                                 </div>
                             </div>
                             <span className="text-xs font-black text-gray-700 uppercase tracking-tight">
-                                {user.nom}
+                                {user.username}
                             </span>
                         </div>
 

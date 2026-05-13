@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import ProductCard from "../../components/Layouts/ProductCard";
+import Contact from "../../components/Layouts/Contact";
 
 function Home() {
     const fake = [
@@ -126,6 +127,10 @@ function Home() {
                         </p>
                     </div>
                 </div>
+            </section>
+
+            <section>
+                <Contact />
             </section>
 
         </>

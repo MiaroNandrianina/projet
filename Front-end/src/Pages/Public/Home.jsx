@@ -7,13 +7,31 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import ProductCard from "../../components/Layouts/ProductCard";
 import Contact from "../../components/Layouts/Contact";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 
 function Home() {
-    const fake = [
-        { id: 1, Title: "Iphone 14 Pro", details: "Camera:48Mp Ram:128gb", prix: "2 500 000" },
-        { id: 2, Title: "Nokia x6", details: "Camera:24Mp Ram:64gb", prix: "500 000" },
-        { id: 3, Title: "Redmi 8 Pro", details: "Camera:48Mp Ram:128gb", prix: "1 500 000" },
-    ]
+    const [phones, setPhones] = useState([]);
+    const [Loading, setLoading]=useState(true);
+    useEffect(()=>{
+        const fecthPhones = async()=>{
+            try {
+                const reponse = await api.get("/modeles");
+                setPhones(reponse.data);
+            } catch (error) {
+                console.error("erreur:",error)
+            }finally{
+                setLoading(false);
+            }
+        }
+        fecthPhones();
+    },[]);
+    if (Loading) {
+        return <div>
+            <p>En attente chargement....</p>
+        </div>
+    }
+
     const features = [
         { id: 1, Legend: "Livraison rapide", para: "Recevez vos commandes en un temps record", icon: <i className="fa-solid fa-truck-fast text-[#43b9e0] text-5xl"></i> },
         { id: 2, Legend: "Garantie Sécurisée", para: "Des téléphones garantie jusqu'à 2 ans", icon: <i class="fa-solid fa-shield-halved text-[#43b9e0] text-5xl"></i> },
@@ -52,7 +70,7 @@ function Home() {
                     },
                 }}
                     className="mySwiper max-w-[1200px] mt-14" >
-                    {fake.map(phone => (
+                    {phones.map(phone => (
                         <SwiperSlide key={phone.id}>
                             <ProductCard phone={phone} />
                         </SwiperSlide>

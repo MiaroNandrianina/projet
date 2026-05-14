@@ -22,11 +22,11 @@ final class CommandeApiController extends AbstractController
             return new JsonResponse(['error' => 'Mila manao login ianao'], 401);
         };
         $data = json_decode($request->getContent(), true);
-        $cart = $data['panier']; // Lisitry ny entana avy amin'ny React
+        $cart = $data['panier']; 
         if (empty($cart)) {
             return new JsonResponse(['error' => 'Foana ny haronao'], 400);
         }
-        // --- 1. MAMORONA NY COMMANDE ALOHA (Ity ilay adino!) ---
+        // --- 1. MAMORONA NY COMMANDE //
         $commande = new Commande();
         $commande->setUser($user);
         $commande->setCreatedAt(new \DateTimeImmutable());
@@ -34,7 +34,7 @@ final class CommandeApiController extends AbstractController
 
         $total=0;
 
-        // 3. Mamorona ny LigneCommande tsirairay
+        
         foreach ($cart as $item) {
             $modele = $modelesRepository->find($item['id']);
             if ($modele) {
@@ -44,10 +44,9 @@ final class CommandeApiController extends AbstractController
                 $ligne->setQuantite($item['qte']);
                 $ligne->setPrix($modele->getPrix());
 
-                // Kajy ny total
+    
                 $total += ($modele->getPrix() * $item['qte']);
 
-                // (Bonus) Mampihena ny stock
                 $modele->setStock($modele->getStock() - $item['qte']);
 
                 $em->persist($ligne);
@@ -57,6 +56,6 @@ final class CommandeApiController extends AbstractController
         $commande->setTotal($total);
         $em->persist($commande);
         $em->flush();
-        return new JsonResponse(['message' => 'Commande voaray! No. ' . $commande->getId()], 201);
+        return new JsonResponse(['message' => 'Commande recu! No. ' . $commande->getId()], 201);
     }
 }

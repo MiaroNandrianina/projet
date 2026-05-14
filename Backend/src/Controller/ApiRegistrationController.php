@@ -27,7 +27,7 @@ final class ApiRegistrationController extends AbstractController
 
         $existingUser = $userRepository->findOneBy(['email' => $data['email']]);
         if ($existingUser) {
-            return $this->json(['message' => 'Efa ampiasaina io email io!'], 400);
+            return $this->json(['message' => 'email existe!'], 400);
         }
 
         $user = new User();
@@ -40,6 +40,6 @@ final class ApiRegistrationController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        return $this->json(['message' => 'Kaonty voatomboka soa aman-tsara!'], 201);
+        return $this->json(['message' => 'compte valider!'], 201);
     }
 }

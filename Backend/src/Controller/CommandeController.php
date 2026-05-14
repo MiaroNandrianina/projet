@@ -18,6 +18,7 @@ final class CommandeController extends AbstractController
             'commandes' => $commandeRepository->findBy([], ['created_at' => 'DESC']),
         ]);
     }
+    
     #[Route('/{id}/valider', name: 'app_commande_valider', methods: ['POST'])]
     public function valider(Commande $commande, EntityManagerInterface $em): Response
     {
@@ -25,7 +26,7 @@ final class CommandeController extends AbstractController
         $commande->setStatus('Validé'); 
         $em->flush();
 
-        $this->addFlash('success', 'Kaomandy laharana #' . $commande->getId() . ' efa voamarina!');
+        $this->addFlash('success', 'Kaomandy laharana #' . $commande->getId() . 'compte verifié!');
 
         return $this->redirectToRoute('app_commande');
     }

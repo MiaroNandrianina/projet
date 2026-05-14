@@ -39,7 +39,7 @@ final class ModelesController extends AbstractController
                 $sary = uniqid().'.'.$saryfile->guessExtension();
                 
                 try {
-                    $saryfile->move($this->getParameter('kernel.project_dir') . '/public/uploads', $sary);
+                    $saryfile->move($this->getParameter('kernel.project_dir') . '/public/uploads/images', $sary);
                 } catch (FileException $e) {
                 
                 }
@@ -79,7 +79,7 @@ final class ModelesController extends AbstractController
             $sary=uniqid().'.'.$saryfile->guessExtension();
             
             try {
-                $saryfile->move($this->getParameter('kernel.project_dir') . '/public/uploads', $sary);
+                $saryfile->move($this->getParameter('kernel.project_dir') . '/public/uploads/images', $sary);
             } catch (FileException $e) {
                 
             }

@@ -11,6 +11,7 @@ import Home from "./Pages/Public/Home";
 import Login from "./Pages/Public/Login";
 import Register from "./Pages/Public/Register";
 import Dashboard from "./Pages/Client/Dashboard";
+import Footer from "./components/Layouts/Footer";
 
 function AppContent() {
   const { user } = useContext(AuthContext);
@@ -20,7 +21,7 @@ function AppContent() {
       <div className="min-h-screen bg-base-200">
         <Routes>
           {/* 1. PEJY HO AN'NY DAHOLOBE (Home, Login, sns.) */}
-          <Route element={<><header className="fixed top-0 w-full z-50"><Navbar /></header><main className="pt-16"><Outlet /></main></>}>
+          <Route element={<><header className="fixed top-0 w-full z-50"><Navbar /></header><main className="pt-16"><Outlet /><Footer /></main></>}>
             <Route path="/" element={<Home />} />
             <Route path="/Login" element={!user ? <Login /> : <Navigate to="/dashboard" replace />} />
             <Route path="/Register" element={!user ? <Register /> : <Navigate to="/dashboard" replace />} />

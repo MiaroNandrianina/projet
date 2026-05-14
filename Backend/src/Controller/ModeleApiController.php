@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Modeles;
 use App\Repository\ModelesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,6 +31,28 @@ final class ModeleApiController extends AbstractController
                 'details'=>$modele->getDetails(),
             ];
         }
+
+        return new JsonResponse($data);
+    }
+    
+   #[Route('/api/modeles/{id}', name: 'app_api_modeles_details', methods: ['GET'])]
+    public function details(Modeles $modele): JsonResponse
+    {
+        $baseUrl = "http://localhost:8000/uploads/images/";
+
+        // Averina eto indray ilay firafitry ny data mitovy amin'ny any ambony
+        $data = [
+            'id' => $modele->getId(),
+            'nom' => $modele->getNom(),
+            'prix' => $modele->getPrix(),
+            'imageUrl' => $modele->getImageUrl() ? $baseUrl . $modele->getImageUrl() : null,
+            'stock' => $modele->getStock(),
+            'details' => $modele->getDetails(),
+            'marque' => [
+                'id' => $modele->getMarque()->getId(),
+                'nom' => $modele->getMarque()->getNom(),
+            ],
+        ];
 
         return new JsonResponse($data);
     }

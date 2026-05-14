@@ -10,6 +10,7 @@ import Contact from "../../components/Layouts/Contact";
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 
+
 function Home() {
     const [phones, setPhones] = useState([]);
     const [Loading, setLoading]=useState(true);

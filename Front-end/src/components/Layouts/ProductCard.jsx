@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function ProductCard({ phone }) {
     console.log("Inona ny ao anatin'ny phone:", phone);
     return (
@@ -28,9 +29,9 @@ function ProductCard({ phone }) {
                 <div className="card-actions justify-center pt-4">
                     <div className="flex gap-3">
 
-                        <button className="btn btn-outline btn-primary rounded-xl">
+                        <Link to={`/product/${phone.id}`} className="btn btn-outline btn-primary rounded-xl">
                             Voir détails
-                        </button>
+                        </Link>
 
                         <button className="btn rounded-xl bg-orange-500 hover:bg-orange-600 text-white border-none">
                             Au panier

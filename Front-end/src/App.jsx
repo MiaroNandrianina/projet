@@ -12,6 +12,7 @@ import Login from "./Pages/Public/Login";
 import Register from "./Pages/Public/Register";
 import Dashboard from "./Pages/Client/Dashboard";
 import Footer from "./components/Layouts/Footer";
+import ProductDetails from "./components/Layouts/ProductDetails";
 
 function AppContent() {
   const { user } = useContext(AuthContext);
@@ -25,6 +26,7 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/Login" element={!user ? <Login /> : <Navigate to="/dashboard" replace />} />
             <Route path="/Register" element={!user ? <Register /> : <Navigate to="/dashboard" replace />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
           </Route>
 
           {/* 2. PEJY AO ANATY DASHBOARD (Sidebar) */}

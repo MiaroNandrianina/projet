@@ -1,14 +1,34 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import { CartContext } from "../../Context/CartContext";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 
 function Navbar() {
     // Alaina ny user sy ny logout avy ao amin'ny Context
     const { user, logout } = useContext(AuthContext);
+    const { cartCount } = useContext(CartContext);
+
+    //........ logique brand........ //
+    const [Brands, setBrands] = useState([]);
+    useEffect(() => {
+        const BrandsFetch = async () => {
+            try {
+                const reponse = await api.get("/marque");
+                setBrands(reponse.data);
+            } catch (error) {
+                console.error("erreur brands:", error)
+            }
+        }
+        BrandsFetch();
+    }, []);
+    // .........logique modeles.............//
+    
 
     return (
         <div className="navbar bg-white px-4 lg:px-8 shadow-sm border-b border-gray-100 sticky top-0 z-50">
-            
+
             {/* LEFT - LOGO */}
             <div className="navbar-start">
                 <div className="dropdown">
@@ -24,7 +44,7 @@ function Navbar() {
                         <li><Link to="/Contact">Contact</Link></li>
                     </ul>
                 </div>
-                
+
                 <Link to="/" className="flex items-center gap-2">
                     <span className="text-2xl font-black text-[#2563eb] tracking-tighter uppercase">
                         MyPhone
@@ -36,7 +56,8 @@ function Navbar() {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal gap-1 px-1 font-bold text-gray-600">
                     <li><Link to="/" className="hover:text-[#2563eb] rounded-xl transition duration-200">Accueil</Link></li>
-                    <li>
+
+                    {/* <li>
                         <details>
                             <summary className="hover:text-[#2563eb] rounded-xl transition duration-200 cursor-pointer">Catégories</summary>
                             <ul className="bg-base-100 rounded-xl p-2 shadow-lg w-44 z-[100] border border-gray-50 mt-2">
@@ -44,7 +65,39 @@ function Navbar() {
                                 <li><a>Accessoires</a></li>
                             </ul>
                         </details>
+                    </li>  */}
+                    <li className="relative">
+                        <details>
+                            <summary className="hover:text-[#2563eb] rounded-xl transition duration-200 cursor-pointer list-none">
+                                Catégories
+                            </summary>
+
+                            <div className="bg-white rounded-xl p-4 shadow-lg w-[600px] border border-gray-100 mt-3 absolute z-50">
+
+                                {/* FLEX BRANDS */}
+                                <div className="flex gap-6 flex-wrap">
+
+                                    {Brands.map(brand => (
+                                        <details key={brand.id} className="min-w-[120px]">
+                                            <summary className="font-semibold cursor-pointer hover:text-blue-600 list-none">
+                                                {brand.nom}
+                                            </summary>
+
+                                            
+                                            <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                                                <li><a className="hover:text-blue-500">Galaxy S24</a></li>
+                                                <li><a className="hover:text-blue-500">Galaxy A55</a></li>
+                                                <li><a className="hover:text-blue-500">Galaxy Z Flip</a></li>
+                                            </ul>
+                                        </details>
+                                    ))}
+
+                                </div>
+                            </div>
+                        </details>
                     </li>
+
+
                     <li><Link to="/Service" className="hover:text-[#2563eb] rounded-xl transition duration-200">Service</Link></li>
                     <li><Link to="/Apropos" className="hover:text-[#2563eb] rounded-xl transition duration-200">A propos</Link></li>
                     <li><Link to="/contact" className="hover:text-[#2563eb] rounded-xl transition duration-200">Contact</Link></li>
@@ -53,6 +106,19 @@ function Navbar() {
 
             {/* RIGHT - AUTH LOGIC */}
             <div className="navbar-end gap-3">
+                <Link to="/cart" className="btn btn-ghost btn-circle">
+                    <div className="indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        {/* Ity no badge mena kely mampiseho ny isa */}
+                        {cartCount > 0 && (
+                            <span className="badge badge-sm badge-primary indicator-item text-white border-none">
+                                {cartCount}
+                            </span>
+                        )}
+                    </div>
+                </Link>
                 {!user ? (
                     /* RAHA TSY CONNECTÉ */
                     <div className="flex items-center gap-2">
@@ -66,13 +132,13 @@ function Navbar() {
                 ) : (
                     /* RAHA EFA CONNECTÉ */
                     <div className="flex items-center gap-2">
-                        
+
                         {/* 1. LIEN DASHBOARD - Hiverenana ao amin'ny Sidebar */}
-                        <Link 
-                            to="/dashboard" 
+                        <Link
+                            to="/dashboard"
                             className="btn btn-sm h-10 bg-[#2563eb] hover:bg-blue-700 text-white border-none rounded-full px-5 font-bold shadow-sm flex items-center gap-2"
                         >
-                            
+
                             Dashboard
                         </Link>
 
@@ -89,8 +155,8 @@ function Navbar() {
                         </div>
 
                         {/* 3. LOGOUT ICON */}
-                        <button 
-                            onClick={logout} 
+                        <button
+                            onClick={logout}
                             title="Déconnexion"
                             className="btn btn-ghost btn-circle btn-sm text-red-500 hover:bg-red-50 transition-colors"
                         >

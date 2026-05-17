@@ -1,7 +1,16 @@
-// import { useform } from "react-hook-form";
-// import api from "../../services/api";
+import { useForm } from "react-hook-form";
+import api from "../../services/api";
 function Contact() {
 
+    const { contact, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = async (data) => {
+        try {
+            const response = await api.post("/contact/api", data);
+            alert("message success");
+        } catch (error) {
+            console.error("erreur message:", error.reponse?.data);
+        }
+    }
     return (
         <div className="flex flex-col md:flex-row-reverse items-center justify-center gap-10 p-8 bg-base-100 rounded-3xl shadow-xl">
 
@@ -25,7 +34,7 @@ function Contact() {
                     </p>
                 </div>
 
-                <form className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
                     <div>
                         <label className="label">
@@ -37,8 +46,40 @@ function Contact() {
                         <input
                             type="text"
                             placeholder="Votre nom"
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
+                            className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary ${errors.nom
+                                ? "border-red-400"
+                                : "border-gray-200"}`}
+                            {...contact("nom", { required: "remplir tous les champ" })}
                         />
+
+                        {errors.nom && (
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.nom.message}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="label">
+                            <span className="label-text font-semibold">
+                                tel
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="03254879"
+                            className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary ${errors.tel
+                                ? "border-red-400"
+                                : "border-gray-200"}`}
+                            {...contact("tel", { required: "remplir tous les champ" })}
+                        />
+
+                        {errors.tel && (
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.tel.message}
+                            </p>
+                        )}
                     </div>
 
                     <div>
@@ -50,9 +91,18 @@ function Contact() {
 
                         <input
                             type="email"
-                            placeholder="Votre email"
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
+                            placeholder="xxxx@gmail.com"
+                            className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary ${errors.email
+                                ? "border-red-400"
+                                : "border-gray-200"}`}
+                            {...contact("email", { required: "remplir tous les champ" })}
                         />
+
+                        {errors.email && (
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.email.message}
+                            </p>
+                        )}
                     </div>
 
                     <div>
@@ -61,12 +111,20 @@ function Contact() {
                                 Sujet
                             </span>
                         </label>
-
                         <input
                             type="text"
                             placeholder="Votre sujet"
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
+                            className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary ${errors.sujet
+                                ? "border-red-400"
+                                : "border-gray-200"}`}
+                            {...contact("sujet", { required: "remplir tous les champ" })}
                         />
+
+                        {errors.sujet && (
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.sujet.message}
+                            </p>
+                        )}
                     </div>
 
                     <div>
@@ -78,9 +136,17 @@ function Contact() {
 
                         <textarea
                             placeholder="Votre message..."
-                            className="textarea textarea-bordered w-full h-32 focus:outline-none focus:ring-2 focus:ring-primary"
+                            className={`textarea textarea-bordered w-full h-32 focus:outline-none focus:ring-2 focus:ring-primary ${errors.message ? "border-red-400" : "border-gray-200"}`}
+                            {...contact("message", { required: "remplir tous les champ" })}
                         ></textarea>
+
+                        {errors.message && (
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.message.message}
+                            </p>
+                        )}
                     </div>
+
 
                     <div className="pt-2">
                         <button className="btn btn-primary w-full text-white text-lg rounded-xl shadow-lg hover:scale-105 transition duration-300">

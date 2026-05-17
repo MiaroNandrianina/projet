@@ -5,6 +5,7 @@ import { CartContext } from "../../Context/CartContext";
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 
+
 function Navbar() {
     // Alaina ny user sy ny logout avy ao amin'ny Context
     const { user, logout } = useContext(AuthContext);
@@ -23,8 +24,21 @@ function Navbar() {
         }
         BrandsFetch();
     }, []);
+
     // .........logique modeles.............//
-    
+    const [Modeles, setModeles] = useState([]);
+    useEffect(() => {
+        const ModelesFecth = async () => {
+            try {
+                const reponse = await api.get("/modeles");
+                setModeles(reponse.data);
+                console.log("Ito ny data azo avy any amin'ny /modeles :", reponse.data);
+            } catch (error) {
+                console.error("erreur modeles:", error);
+            }
+        }
+        ModelesFecth();
+    }, []);
 
     return (
         <div className="navbar bg-white px-4 lg:px-8 shadow-sm border-b border-gray-100 sticky top-0 z-50">
@@ -57,15 +71,6 @@ function Navbar() {
                 <ul className="menu menu-horizontal gap-1 px-1 font-bold text-gray-600">
                     <li><Link to="/" className="hover:text-[#2563eb] rounded-xl transition duration-200">Accueil</Link></li>
 
-                    {/* <li>
-                        <details>
-                            <summary className="hover:text-[#2563eb] rounded-xl transition duration-200 cursor-pointer">Catégories</summary>
-                            <ul className="bg-base-100 rounded-xl p-2 shadow-lg w-44 z-[100] border border-gray-50 mt-2">
-                                <li><a>Smartphones</a></li>
-                                <li><a>Accessoires</a></li>
-                            </ul>
-                        </details>
-                    </li>  */}
                     <li className="relative">
                         <details>
                             <summary className="hover:text-[#2563eb] rounded-xl transition duration-200 cursor-pointer list-none">
@@ -76,22 +81,29 @@ function Navbar() {
 
                                 {/* FLEX BRANDS */}
                                 <div className="flex gap-6 flex-wrap">
+                                    <div className="flex gap-6 flex-wrap">
+                                        {Brands.map(brand => (
+                                            <div key={brand.id} className="min-w-[120px]">
+                                
+                                                <span className="font-semibold text-[#0066ff] block border-b border-gray-100 pb-1">
+                                                    {brand.nom}
+                                                </span>
 
-                                    {Brands.map(brand => (
-                                        <details key={brand.id} className="min-w-[120px]">
-                                            <summary className="font-semibold cursor-pointer hover:text-blue-600 list-none">
-                                                {brand.nom}
-                                            </summary>
-
-                                            
-                                            <ul className="mt-2 space-y-1 text-sm text-gray-600">
-                                                <li><a className="hover:text-blue-500">Galaxy S24</a></li>
-                                                <li><a className="hover:text-blue-500">Galaxy A55</a></li>
-                                                <li><a className="hover:text-blue-500">Galaxy Z Flip</a></li>
-                                            </ul>
-                                        </details>
-                                    ))}
-
+                                                <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                                                    {Modeles
+                                                        .filter(model => model.marque && model.marque.id == brand.id)
+                                                        .map(model => (
+                                                            <li key={model.id}>
+                                                                <Link to={`/product/${model.id}`} className="hover:text-blue-500 block py-0.5 cursor-pointer">
+                                                                    {model.nom}
+                                                                </Link>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </details>

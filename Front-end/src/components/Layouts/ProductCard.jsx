@@ -15,7 +15,7 @@ function ProductCard({ phone, }) {
     };
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl hover:shadow-2xl transition duration-300 rounded-2xl overflow-hidden">
+        <div className="card w-full bg-base-100 shadow-xl hover:shadow-2xl transition duration-300 rounded-2xl overflow-hidden">
             
             {/* FIGURE - SARY */}
             <figure className="bg-gray-100 p-4">

@@ -28,6 +28,8 @@ function Home() {
         }
         fecthPhones();
     },[]);
+    // ..........................filter produit ........................//
+    const FilterPhones = phones.filter(phone => [2, 3, 5].includes(phone.id) )
 
     if (Loading) {
         return <div className="flex justify-center flex-col items-center">
@@ -73,7 +75,7 @@ function Home() {
                     },
                 }}
                     className="mySwiper !overflow-visible max-w-[1200px] mt-14" >
-                    {phones.map(phone => (
+                    {FilterPhones.map(phone => (
                         <SwiperSlide key={phone.id}>
                             <ProductCard phone={phone} />
                         </SwiperSlide>

@@ -36,37 +36,78 @@ function ListesProduit() {
     }
 
     return (
+        // <section className="mt-12 p-4 max-w-[1200px] mx-auto mb-20">
+        //     <div className="text-start mb-10">
+        //         <h2 className="text-3xl font-bold font-poppins">Liste produits</h2>
+        //         <p className="text-gray-500">Vous pouvez consulter ici toutes les options que nous proposons.</p>
+        //     </div>
+
+        //     <Swiper
+        //         slidesPerView={1.2}
+        //         spaceBetween={20}
+        //         pagination={{ clickable: true }}
+        //         modules={[Pagination]}
+        //         breakpoints={{
+
+        //             768: {
+        //                 slidesPerView: 3,
+        //                 spaceBetween: 30,
+        //                 enabled: false, 
+        //             },
+        //         }}
+
+        //         className="mySwiper mt-10 !pb-12 md:!grid md:!grid-cols-3 md:!gap-8"
+        //     >
+        //         {phones.map((phone) => (
+        //             <SwiperSlide key={phone.id} className="md:!h-auto">
+        //                 <ProductCard phone={phone} />
+        //             </SwiperSlide>
+        //         ))}
+        //     </Swiper>
+
+        //     {phones.length === 0 && (
+        //         <p className="text-center text-gray-400">pas de produit attender s'il vous plait.</p>
+        //     )}
+        // </section>
         <section className="mt-12 p-4 max-w-[1200px] mx-auto mb-20">
             <div className="text-start mb-10">
-                <h2 className="text-3xl font-bold font-poppins">Liste produits</h2>
-                <p className="text-gray-500">Vous pouvez consulter ici toutes les options que nous proposons.</p>
+                <h2 className="text-3xl font-bold font-poppins">
+                    Liste produits
+                </h2>
+
+                <p className="text-gray-500">
+                    Vous pouvez consulter ici toutes les options que nous proposons.
+                </p>
             </div>
 
-            <Swiper
-                slidesPerView={1.2}
-                spaceBetween={20}
-                pagination={{ clickable: true }}
-                modules={[Pagination]}
-                breakpoints={{
-                    
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                        enabled: false, 
-                    },
-                }}
-    
-                className="mySwiper mt-10 !pb-12 md:!grid md:!grid-cols-3 md:!gap-8"
-            >
+            {/* MOBILE */}
+            <div className="md:hidden">
+                <Swiper
+                    slidesPerView={1.2}
+                    spaceBetween={20}
+                    pagination={{ clickable: true }}
+                    modules={[Pagination]}
+                    className="mySwiper mt-10 !pb-12"
+                >
+                    {phones.map((phone) => (
+                        <SwiperSlide key={phone.id}>
+                            <ProductCard phone={phone} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+
+            {/* DESKTOP */}
+            <div className="hidden md:grid md:grid-cols-3 gap-8 mt-10">
                 {phones.map((phone) => (
-                    <SwiperSlide key={phone.id} className="md:!h-auto flex justify-center">
-                        <ProductCard phone={phone} />
-                    </SwiperSlide>
+                    <ProductCard key={phone.id} phone={phone} />
                 ))}
-            </Swiper>
-            
+            </div>
+
             {phones.length === 0 && (
-                <p className="text-center text-gray-400">pas de produit attender s'il vous plait.</p>
+                <p className="text-center text-gray-400">
+                    pas de produit attender s'il vous plait.
+                </p>
             )}
         </section>
     );

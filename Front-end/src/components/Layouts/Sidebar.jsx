@@ -117,9 +117,7 @@ function Sidebar() {
                             onClick={logout}
                             className="btn btn-ghost btn-sm w-full is-drawer-close:px-0 flex items-center justify-center lg:justify-start gap-4 text-red-500 hover:bg-red-50"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-5 shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-                            </svg>
+                             <i class="fa-solid fa-right-from-bracket text-red-600 text-2xl"></i>
                             <span className="is-drawer-close:hidden text-xs font-bold uppercase">Quitter</span>
                         </button>
                     </div>

@@ -51,17 +51,17 @@ function Navbar() {
                         </svg>
                     </div>
 
-                    
+
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] w-52 rounded-2xl bg-base-100 p-4 shadow-xl text-gray-700 font-semibold gap-2">
                         <li><Link to="/">Accueil</Link></li>
                         <li><Link to="/Service">Service</Link></li>
                         <li><Link to="/Apropos">A propos</Link></li>
                         <li><Link to="/Contact">Contact</Link></li>
 
-                        
-                        {!user && (
+
+                        {!user ? (
                             <>
-                                <hr className="my-2 border-gray-100" /> 
+                                <hr className="my-2 border-gray-100" />
                                 <li>
                                     <Link to="/Login" className="text-[#2563eb] hover:bg-blue-50 justify-center py-2 border border-blue-100 rounded-xl">
                                         Connexion
@@ -73,6 +73,13 @@ function Navbar() {
                                     </Link>
                                 </li>
                             </>
+                        ) : (
+                            <Link
+                                to="/dashboard"
+                                className="btn btn-sm h-10 bg-[#2563eb] hover:bg-blue-700 text-white border-none rounded-full px-5 font-bold shadow-sm flex items-center gap-2"
+                            >
+                                Dashboard
+                            </Link>
                         )}
                     </ul>
                 </div>
@@ -127,12 +134,12 @@ function Navbar() {
                 </ul>
             </div>
 
-        
+
             <div className="navbar-end gap-3">
-            
+
                 <Link to="/cart" className="btn btn-ghost btn-circle">
                     <div className="indicator">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                         {cartCount > 0 && (
@@ -144,7 +151,7 @@ function Navbar() {
                 </Link>
 
                 {!user ? (
-                
+
                     <div className="hidden lg:flex items-center gap-2">
                         <Link to="/Login" className="btn btn-ghost text-[#2563eb] font-bold rounded-full px-6 hover:bg-blue-50">
                             Connexion
@@ -154,11 +161,11 @@ function Navbar() {
                         </Link>
                     </div>
                 ) : (
-                    
+
                     <div className="flex items-center gap-2">
                         <Link
                             to="/dashboard"
-                            className="btn btn-sm h-10 bg-[#2563eb] hover:bg-blue-700 text-white border-none rounded-full px-5 font-bold shadow-sm flex items-center gap-2"
+                            className="hidden btn btn-sm h-10 bg-[#2563eb] hover:bg-blue-700 text-white border-none rounded-full px-5 font-bold shadow-sm lg:flex items-center gap-2"
                         >
                             Dashboard
                         </Link>

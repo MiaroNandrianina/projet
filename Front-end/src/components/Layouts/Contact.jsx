@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import api from "../../services/api";
 function Contact() {
 
-    const { contact, handleSubmit, formState: { errors } } = useForm();
+    const { register:contact, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         try {
-            const response = await api.post("/contact/api", data);
+            await api.post("/contact", data);
             alert("message success");
+            reset();
         } catch (error) {
             console.error("erreur message:", error.reponse?.data);
         }

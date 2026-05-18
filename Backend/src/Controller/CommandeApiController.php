@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\CommandeItems;
+use App\Repository\CommandeRepository;
 use App\Repository\ModelesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,14 +20,14 @@ final class CommandeApiController extends AbstractController
     {
         $user = $this->getUser();
         if (!$user) {
-            return new JsonResponse(['error' => 'Mila manao login ianao'], 401);
+            return new JsonResponse(['error' => 'bessoin de se connecter'], 401);
         };
         $data = json_decode($request->getContent(), true);
         $cart = $data['panier']; 
         if (empty($cart)) {
-            return new JsonResponse(['error' => 'Foana ny haronao'], 400);
+            return new JsonResponse(['error' => 'Panier vide'], 400);
         }
-        // --- 1. MAMORONA NY COMMANDE //
+        //  MAMORONA NY COMMANDE //
         $commande = new Commande();
         $commande->setUser($user);
         $commande->setCreatedAt(new \DateTimeImmutable());
@@ -57,5 +58,46 @@ final class CommandeApiController extends AbstractController
         $em->persist($commande);
         $em->flush();
         return new JsonResponse(['message' => 'Commande recu! No. ' . $commande->getId()], 201);
+    }
+
+    #[Route('/api/commande/{id}', name: 'app_commande_detail', methods:['GET'])]
+    public function detail(int $id, CommandeRepository $commandeRepo): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json(['error' => 'Connecter vous si possible'], 401);
+        }
+
+        $commande = $commandeRepo->find($id);
+
+        if (!$commande || $commande->getUser() !== $user) {
+            return $this->json(['error' => 'Commande introuvable'], 404);
+        }
+
+        $itemsData = [];
+        
+        $items = method_exists($commande, 'getCommandeItems') ? $commande->getCommandeItems() : [];
+
+        foreach ($items as $item) {
+            $modele = $item->getModele(); 
+            
+            $itemsData[] = [
+                'id' => $item->getId(),
+                'telephone' => $modele ? (method_exists($modele, 'getNom') ? $modele->getNom() : 'Finday') : 'Produit inconnu', 
+                'quantite' => $item->getQuantite(),
+                'prixUnitaire' => (float) $item->getPrix(), 
+                'sousTotal' => (float) ($item->getQuantite() * $item->getPrix())
+            ];
+        }
+
+        $dateFormated = $commande->getCreatedAt() ? $commande->getCreatedAt()->format('c') : date('c');
+
+        return $this->json([
+            'id' => $commande->getId(),
+            'date' => $dateFormated,
+            'total' => (float) $commande->getTotal(),
+            'status' => $commande->getStatus() ?? 'En attente',
+            'items' => $itemsData
+        ]);
     }
 }

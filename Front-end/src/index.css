@@ -12,3 +12,17 @@
     font-family: 'Montserrat', sans-serif;
   }
 }
+
+.custom-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ccc; 
+    opacity: 1;
+    border-radius: 50%;
+    display: inline-block;
+}
+.custom-pagination .swiper-pagination-bullet-active {
+    background: #3b82f6; 
+    width: 20px; 
+    border-radius: 5px;
+}

@@ -15,7 +15,7 @@ const Register = () => {
         try {
             await api.post("/registration", data);
 
-            alert("Tafiditra ny fisoratana anarana !");
+            alert("enregistrement recu !");
         } catch (error) {
             console.error("Erreur  Symfony :", error.response?.data);
         }
@@ -93,6 +93,7 @@ const Register = () => {
                                             ? "border-red-400"
                                             : "border-gray-200"
                                     }`}
+
                                     {...register("nom", {
                                         required: "Tsy maintsy fenoina ny nom",
                                     })}
@@ -120,6 +121,7 @@ const Register = () => {
                                             ? "border-red-400"
                                             : "border-gray-200"
                                     }`}
+                                    
                                     {...register("email", {
                                         required: "Tsy maintsy fenoina ny email",
                                     })}
@@ -128,6 +130,58 @@ const Register = () => {
                                 {errors.email && (
                                     <p className="text-red-500 text-sm mt-2">
                                         {errors.email.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="mb-5">
+
+                                <label className="block mb-2 text-sm font-semibold text-gray-700">
+                                    telephone
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="00000000"
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
+                                        errors.telephone
+                                            ? "border-red-400"
+                                            : "border-gray-200"
+                                    }`}
+                                    {...register("telephone", {
+                                        required: "Tsy maintsy fenoina ny email",
+                                    })}
+                                />
+
+                                {errors.telephone && (
+                                    <p className="text-red-500 text-sm mt-2">
+                                        {errors.telephone.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="mb-5">
+
+                                <label className="block mb-2 text-sm font-semibold text-gray-700">
+                                    adresse
+                                </label>
+
+                                <textarea
+                                    type="text"
+                                    placeholder="lot hub125 Ivanja"
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
+                                        errors.adresse
+                                            ? "border-red-400"
+                                            : "border-gray-200"
+                                    }`}
+                                    {...register("adresse", {
+                                        required: "Tsy maintsy fenoina ny email",
+                                    })}
+                                />
+
+                                {errors.adresse && (
+                                    <p className="text-red-500 text-sm mt-2">
+                                        {errors.adresse.message}
                                     </p>
                                 )}
                             </div>

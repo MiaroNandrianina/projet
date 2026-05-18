@@ -4,15 +4,15 @@ function Footer() {
             <nav>
                 <h6 className="footer-title">SUIVEZ NOUS</h6>
                 <div>
-                    <i class="fa-brands fa-facebook-f text-2xl"></i>
+                    <i className="fa-brands fa-facebook-f text-2xl"></i>
                     <a className="link link-hover">Facebook</a>
                 </div>
                 <div>
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <i className="fa-brands fa-whatsapp text-2xl"></i>
                     <a className="link link-hover">Whatsapp</a>
                 </div>
                 <div>
-                    <i class="fa-brands fa-instagram text-2xl"></i>
+                    <i className="fa-brands fa-instagram text-2xl"></i>
                     <a className="link link-hover">Instagram</a>
                 </div>
                

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext"; // Hamarino tsara raha ity ny lalana mankany amin'ny Context-nao
 
-function ProductCard({ phone, }) {
+function DashboardCard({ phone, }) {
     // 1. Maka ny function addToCart avy ao amin'ny Context
     const { addToCart } = useContext(CartContext);
 
@@ -20,7 +20,7 @@ function ProductCard({ phone, }) {
             {/* FIGURE - SARY */}
             <figure className="bg-gray-100 p-4">
                 <img
-                    src={phone.imageUrl}
+                    src={phone.imageUrl || "https://via.placeholder.com/150"} // Back-up raha tsisy sary
                     alt={phone.nom}
                     className="h-64 object-contain hover:scale-105 transition duration-300"
                 />
@@ -46,7 +46,7 @@ function ProductCard({ phone, }) {
                         
                         {/* Bokotra hizaha antsipiriany */}
                         <Link 
-                            to={`/product/${phone.id}`} 
+                            to={`/Details/${phone.id}`} 
                             className="btn btn-outline btn-primary rounded-xl"
                         >
                             Voir détails
@@ -70,4 +70,4 @@ function ProductCard({ phone, }) {
     );
 }
 
-export default ProductCard;
+export default DashboardCard;

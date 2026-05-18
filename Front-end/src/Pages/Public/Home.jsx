@@ -9,6 +9,7 @@ import ProductCard from "../../components/Layouts/ProductCard";
 import Contact from "../../components/Layouts/Contact";
 import { useState, useEffect } from "react";
 import api from "../../services/api";
+import { Link } from "react-router-dom";
 
 
 function Home() {
@@ -20,38 +21,39 @@ function Home() {
                 const reponse = await api.get("/modeles");
                 setPhones(reponse.data);
             } catch (error) {
-                console.error("erreur:",error)
+                console.error("erreur:", error )
             }finally{
                 setLoading(false);
             }
         }
         fecthPhones();
     },[]);
+
     if (Loading) {
-        return <div>
+        return <div className="flex justify-center flex-col items-center">
             <p>En attente chargement....</p>
         </div>
     }
 
     const features = [
         { id: 1, Legend: "Livraison rapide", para: "Recevez vos commandes en un temps record", icon: <i className="fa-solid fa-truck-fast text-[#43b9e0] text-5xl"></i> },
-        { id: 2, Legend: "Garantie Sécurisée", para: "Des téléphones garantie jusqu'à 2 ans", icon: <i class="fa-solid fa-shield-halved text-[#43b9e0] text-5xl"></i> },
-        { id: 3, Legend: "Paiement facile", para: "Transaction sécurisée et options flexibles", icon: <i class="fa-brands fa-cc-paypal text-[#43b9e0] text-5xl"></i> }
+        { id: 2, Legend: "Garantie Sécurisée", para: "Des téléphones garantie jusqu'à 2 ans", icon: <i className="fa-solid fa-shield-halved text-[#43b9e0] text-5xl"></i> },
+        { id: 3, Legend: "Paiement facile", para: "Transaction sécurisée et options flexibles", icon: <i className="fa-brands fa-cc-paypal text-[#43b9e0] text-5xl"></i> }
     ]
     return (
 
         <>
-            <section class="mt-12 p-4 lg:mt-4">
-                <div class="hero bg-gradient-to-bl from-violet-500 to-fuchsia-500 rounded-lg">
-                    <div class="hero-content flex-col gap-4 lg:flex-row-reverse">
-                        <img src="/src/assets/hero.png" class="rounded-lg shadow-2xl" />
+            <section className="mt-12 p-4 lg:mt-4">
+                <div className="hero bg-gradient-to-bl from-violet-500 to-fuchsia-500 rounded-lg">
+                    <div className="hero-content flex-col gap-4 lg:flex-row-reverse">
+                        <img src="/src/assets/hero.png" className="rounded-lg shadow-2xl" />
                         <div>
-                            <h1 class="text-5xl font-bold text-white">Découvrez les meilleurs smartphones au meilleur prix</h1>
-                            <p class="py-6 text-white text-xl">
+                            <h1 className="text-5xl font-bold text-white">Découvrez les meilleurs smartphones au meilleur prix</h1>
+                            <p className="py-6 text-white text-xl">
                                 Profitez des dernières technologies avec nos téléphones performants, élégants et accessibles.
                                 Livraison rapide et garantie incluse.
                             </p>
-                            <button class="btn bg-[#D4AF37]">Get Started</button>
+                            <Link to={"/Login"} className="btn bg-[#D4AF37]">Get Started</Link>
                         </div>
                     </div>
                 </div>
@@ -70,7 +72,7 @@ function Home() {
                         enabled: false,
                     },
                 }}
-                    className="mySwiper max-w-[1200px] mt-14" >
+                    className="mySwiper !overflow-visible max-w-[1200px] mt-14" >
                     {phones.map(phone => (
                         <SwiperSlide key={phone.id}>
                             <ProductCard phone={phone} />
@@ -79,8 +81,9 @@ function Home() {
                 </Swiper>
 
                 <div className="flex justify-center items-center flex-col mt-8">
-                    <button className="btn btn-primary">voir plus</button>
+                    <Link to={"/liste-produits"} className="btn btn-primary">voir plus</Link>
                 </div>
+                
             </section>
 
             <section className="mt-12 p-4 space-y-8">

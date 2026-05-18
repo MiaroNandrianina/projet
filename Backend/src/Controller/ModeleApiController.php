@@ -39,8 +39,7 @@ final class ModeleApiController extends AbstractController
     public function details(Modeles $modele): JsonResponse
     {
         $baseUrl = "http://localhost:8000/uploads/images/";
-
-        // Averina eto indray ilay firafitry ny data mitovy amin'ny any ambony
+        
         $data = [
             'id' => $modele->getId(),
             'nom' => $modele->getNom(),

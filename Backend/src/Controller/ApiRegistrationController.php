@@ -21,8 +21,8 @@ final class ApiRegistrationController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // ...................fanamarinana raha feno ny data........................................//
-        if (!isset($data['email']) || !isset($data['password']) || !isset($data['nom'])) {
-            return $this->json(['message' => 'Mila fenoina ny nom, email, ary password!'], 400);
+        if (!isset($data['email']) || !isset($data['password']) || !isset($data['nom']) || !isset($data['telephone']) || !isset($data['adresse']) ) {
+            return $this->json(['message' => 'remplir toutes les champs!'], 400);
         }
 
         $existingUser = $userRepository->findOneBy(['email' => $data['email']]);
@@ -33,6 +33,8 @@ final class ApiRegistrationController extends AbstractController
         $user = new User();
         $user->setNom($data['nom']);
         $user->setEmail($data['email']);
+        $user->setTelephone($data['telephone']);
+        $user->setAdresse($data['adresse']);
         $user->setRoles(['ROLE_USER']);
         // ..........................hasher password................................................//
         $user->setPassword($hasher->hashPassword($user, $data['password']));

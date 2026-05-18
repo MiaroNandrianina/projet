@@ -58,21 +58,20 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
 
-        # Sokafy ho an'ny rehetra ny GET marques sy modeles
+        # acces public
         - { path: ^/api/marque, roles: PUBLIC_ACCESS, methods: [GET] }
         - { path: ^/api/modeles, roles: PUBLIC_ACCESS, methods: [GET] }
-        - { path: ^/contact/api, roles: PUBLIC_ACCESS, methods: [POST] }
-
-        # 3. FARITO NY LALANA AZO IDIRANA (PUBLIC SA TSIA)
+        - { path: ^/api/contact, roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: ^/api/registration, roles: PUBLIC_ACCESS }
         - { path: ^/api/login,        roles: PUBLIC_ACCESS }
-        - { path: ^/api,              roles: IS_AUTHENTICATED_FULLY }
-
-        # Avelao ny olona rehetra hahita ny pejy Login
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
+
+        # user connecter 
+        - { path: ^/api/profile, roles: ROLE_USER }
+        # 3. autre api connecter
+        - { path: ^/api,              roles: IS_AUTHENTICATED_FULLY }
     
         # Hidio ny pejy hafa rehetra (Dashboard, Marque,sns) ho an'ny Admin ihany
         - { path: ^/, roles: ROLE_ADMIN }

@@ -1,11 +1,121 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MessageController!{% endblock %}
+{% block title %}Hello MessageController{% endblock %}
 
 {% block body %}
+<div class="container mx-auto p-4 md:p-6">
+    
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-success mb-4 text-sm py-2 rounded-xl">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
-  <div>
-     <h1 class="text-center">toutes les messages du client </h1>
-  </div>  
- 
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div>
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Message client(Contact)</h1>
+            <p class="text-xs md:text-sm text-gray-500">Les messages envoyer par des clients</p>
+        </div>
+        <span class="badge badge-primary p-3 font-semibold">{{ messages|length }} Messages</span>
+    </div>
+
+    {% if messages is empty %}
+        <div class="text-center py-12 bg-white rounded-xl shadow-md border border-gray-100 text-gray-400">
+            <p class="text-lg font-medium">pas de message.</p>
+        </div>
+    {% else %}
+        
+        <div class="grid grid-cols-1 gap-4 md:hidden">
+            {% for msg in messages %}
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col gap-3">
+                    <div class="flex justify-between items-start border-b border-gray-50 pb-2">
+                        <div>
+                            <div class="font-bold text-gray-800 text-base">{{ msg.nom }}</div>
+                            <div class="text-xs text-gray-400">{{ msg.createdAt|date('d/m/Y H:i') }}</div>
+                        </div>
+                        <span class="badge badge-secondary badge-outline text-xs px-2 py-1">
+                            {{ msg.sujet }}
+                        </span>
+                    </div>
+
+                    <div class="text-sm text-gray-600 space-y-1">
+                        <p><span class="font-semibold text-gray-400">Email:</span> {{ msg.email }}</p>
+                        <p><span class="font-semibold text-gray-400">Tel:</span> {{ msg.tel }}</p>
+                        <div class="mt-2 p-2 bg-gray-50 rounded-lg text-gray-700 italic text-xs line-clamp-3">
+                            "{{ msg.message }}"
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-2 pt-2 border-t border-gray-50">
+                        <button class="btn btn-xs btn-info btn-outline" onclick="alert('message par\' {{ msg.nom }}:\n\n{{ msg.message|e('js') }}')">
+                            Hijery
+                        </button>
+
+                        <a href="{{ path('app_message_delete', {'id': msg.id}) }}" 
+                           class="btn btn-xs btn-error btn-outline" 
+                           onclick="return confirm('tena ho fafana tokoa ve?')">
+                            Hamafa
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="hidden md:block overflow-x-auto bg-white rounded-xl shadow-md border border-gray-100">
+            <table class="table w-full">
+                <thead class="bg-gray-50 text-gray-700">
+                    <tr>
+                        <th class="py-4 px-6">Mpandefa</th>
+                        <th>Fifandraisana</th>
+                        <th>Sujet</th>
+                        <th>Hafatra</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    {% for msg in messages %}
+                        <tr class="hover:bg-gray-50/50 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="font-bold text-gray-800">{{ msg.nom }}</div>
+                                <span class="text-xs text-gray-400 block mt-1">
+                                    {{ msg.createdAt|date('d/m/Y H:i') }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="text-sm text-gray-600">{{ msg.email }}</div>
+                                <div class="text-xs text-gray-400">{{ msg.tel }}</div>
+                            </td>
+                            <td>
+                                <span class="badge badge-secondary badge-outline text-xs px-2 py-1 font-medium">
+                                    {{ msg.sujet }}
+                                </span>
+                            </td>
+                            <td class="max-w-xs">
+                                <p class="text-sm text-gray-600 truncate" title="{{ msg.message }}">
+                                    {{ msg.message }}
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex justify-center gap-2">
+                                    <button class="btn btn-sm btn-ghost text-info" onclick="alert('Hafatra avy amin\'i {{ msg.nom }}:\n\n{{ msg.message|e('js') }}')">
+                                        voir
+                                    </button>
+
+                                    <a href="{{ path('app_message_delete', {'id': msg.id}) }}" 
+                                       class="btn btn-sm btn-ghost text-error" 
+                                       onclick="return confirm('Tena te-hamafa ity hafatra ity ve ianao?')">
+                                        supprimer
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endif %}
+</div>
 {% endblock %}

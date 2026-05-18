@@ -22,11 +22,11 @@ final class CommandeController extends AbstractController
     #[Route('/{id}/valider', name: 'app_commande_valider', methods: ['POST'])]
     public function valider(Commande $commande, EntityManagerInterface $em): Response
     {
-        // Ovaina ny status (atao hoe 'Validé' na 1 miankina amin'ny karazany ao amin'ny DB)
+        //  status 
         $commande->setStatus('Validé'); 
         $em->flush();
 
-        $this->addFlash('success', 'Kaomandy laharana #' . $commande->getId() . 'compte verifié!');
+        $this->addFlash('success', 'Numero commande #' . $commande->getId() . 'compte verifié!');
 
         return $this->redirectToRoute('app_commande');
     }

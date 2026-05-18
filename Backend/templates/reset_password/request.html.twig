@@ -17,8 +17,8 @@
         {% endfor %}
 
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-base-content">Reset your password</h1>
-            <p class="text-sm text-base-content/60 mt-2">🔑 Hanampy anao izahay hiditra amin'ny kaontinao indray.</p>
+            <h1 class="text-2xl font-bold text-base-content">Réinitialisez votre mot de passe</h1>
+            <p class="text-sm text-base-content/60 mt-2">🔑 Nous allons vous aider à récupérer l'accès à votre compte.</p>
         </div>
 
         {{ form_start(requestForm, {'attr': {'class': 'space-y-6'}}) }}
@@ -34,7 +34,7 @@
                     }
                 }) }}
                 <div class="mt-2 text-xs text-base-content/70 italic">
-                    Enter your email address, and we will send you a link to reset your password.
+                    Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
                 </div>
                 {# Asehoy ny erreur raha misy diso format ny email #}
                 <div class="text-error text-xs mt-1">
@@ -43,14 +43,14 @@
             </div>
 
             <button type="submit" class="btn btn-primary w-full shadow-md hover:shadow-lg transition-all duration-300">
-                Send password reset email
+                envoyer
             </button>
 
         {{ form_end(requestForm) }}
 
         <div class="mt-8 text-center">
             <a href="{{ path('app_login') }}" class="link link-hover text-sm text-primary font-medium">
-                ← Back to Login
+                ← retour login
             </a>
         </div>
 

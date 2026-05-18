@@ -181,13 +181,29 @@ function Navbar() {
                             </span>
                         </div>
 
-                        <button
-                            onClick={logout}
-                            title="Déconnexion"
-                            className="btn  btn-sm text-red-500 hover:bg-red-50 transition-colors"
-                        >
-                            <i class="fa-solid fa-right-from-bracket text-red-600 text-3xl"></i>
-                        </button>
+                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                        <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}><i class="fa-solid fa-right-from-bracket text-red-600 text-3xl"></i></button>
+                        <dialog id="my_modal_1" className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Hello😊!</h3>
+                                <p className="py-4 text-xl">Êtes-vous sûr de vouloir deconnecter votre compte ?</p>
+                                <div className="modal-action flex items-center gap-2">
+
+                                    <button
+                                        onClick={logout}
+                                        title="Déconnexion"
+                                        className="btn btn-sm text-red-500 hover:bg-red-50 transition-colors"
+                                    >
+                                        Oui
+                                    </button>
+
+                                    <form method="dialog">
+                                        {/* if there is a button in form, it will close the modal */}
+                                        <button className="btn btn-sm">Non</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 )}
             </div>

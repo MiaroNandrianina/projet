@@ -27,7 +27,7 @@ final class CommandeApiController extends AbstractController
         if (empty($cart)) {
             return new JsonResponse(['error' => 'Panier vide'], 400);
         }
-        //  MAMORONA NY COMMANDE //
+        //  eto mamorona commande //
         $commande = new Commande();
         $commande->setUser($user);
         $commande->setCreatedAt(new \DateTimeImmutable());

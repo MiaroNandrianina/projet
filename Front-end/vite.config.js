@@ -7,5 +7,11 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    
   ],
+  server: {
+    watch: {
+      usePolling: true, // Manery ny Vite hijery ny fiovan'ny rakitra foana
+    },
+  },
 })

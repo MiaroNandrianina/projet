@@ -8,6 +8,7 @@ function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
@@ -74,15 +75,21 @@ function Login() {
                                 <label className="label font-bold text-gray-700">Mot de passe</label>
                                 <a href="#" className="text-xs text-primary font-bold hover:underline">password oublié?</a>
                             </div>
+                            
                             <input
-                                type="password"
+                                type={showPassword? 'text':'password'}
                                 placeholder="********"
-                                className={`input input-bordered w-full h-14 rounded-2xl focus:input-primary transition-all text-black ${errors.password ? 'input-error' : ''}`}
+                                className={`relative input input-bordered w-full h-14 rounded-2xl focus:input-primary transition-all text-black ${errors.password ? 'input-error' : ''}`}
                                 {...register("password", {
                                     required: "Remplir le champ",
                                     minLength: { value: 6, message: "minimum 6 lettres" }
                                 })}
                             />
+                            <i class={`fa-solid fa-eye cursor-pointer absolute text-2xl top-[403px] right-[64px] lg:top-[423px] lg:right-[320px] ${showPassword?'fa-eye-slash':'fa-eye'} `}
+                               onClick={()=>setShowPassword(!showPassword)}
+                            >
+
+                            </i>
                             {errors.password && <span className="text-error text-xs mt-1 font-bold">{errors.password.message}</span>}
                         </div>
 

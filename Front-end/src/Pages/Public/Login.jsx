@@ -62,7 +62,7 @@ function Login() {
                                 placeholder="ohatra@gmail.com"
                                 className={`input input-bordered w-full h-14 rounded-2xl focus:input-primary transition-all text-black ${errors.email ? 'input-error' : ''}`}
                                 {...register("email", {
-                                    required: "Tsy maintsy fenoina ny email",
+                                    required: "remplir le champ email",
                                     pattern: { value: /^\S+@\S+$/i, message: "Email nom valider" }
                                 })}
                             />
@@ -72,15 +72,15 @@ function Login() {
                         <div className="form-control w-full">
                             <div className="flex justify-between items-center">
                                 <label className="label font-bold text-gray-700">Mot de passe</label>
-                                {/* <a href="#" className="text-xs text-primary font-bold hover:underline">Hadino?</a> */}
+                                <a href="#" className="text-xs text-primary font-bold hover:underline">password oublié?</a>
                             </div>
                             <input
                                 type="password"
                                 placeholder="********"
                                 className={`input input-bordered w-full h-14 rounded-2xl focus:input-primary transition-all text-black ${errors.password ? 'input-error' : ''}`}
                                 {...register("password", {
-                                    required: "Tsy maintsy fenoina ny teny miafina",
-                                    minLength: { value: 6, message: "Litera 6 raha kely indrindra" }
+                                    required: "Remplir le champ",
+                                    minLength: { value: 6, message: "minimum 6 lettres" }
                                 })}
                             />
                             {errors.password && <span className="text-error text-xs mt-1 font-bold">{errors.password.message}</span>}
@@ -91,7 +91,7 @@ function Login() {
                             className={`btn btn-primary w-full h-14 rounded-2xl text-white text-lg font-black shadow-lg shadow-primary/30 transition-all hover:-translate-y-1 ${loading ? 'loading' : ''}`}
                             disabled={loading}
                         >
-                            {loading ? "Andraso kely..." : "Connexion"}
+                            {loading ? "En cours..." : "Connexion"}
                         </button>
                     </form>
 

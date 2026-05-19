@@ -1,23 +1,28 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import { useState } from "react";
 
 const Register = () => {
-
+    const [serverError, setServerError] = useState("");
+    const usenavigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm();
-    
+
 
     const onSubmit = async (data) => {
         try {
             await api.post("/registration", data);
-
+            usenavigate("/Login")
             alert("enregistrement recu !");
         } catch (error) {
-            console.error("Erreur  Symfony :", error.response?.data);
+            // console.error("Erreur  Symfony :", error.response?.data);
+            if (error.response?.data?.message) {
+                setServerError(error.response.data.message);
+            }
         }
     };
 
@@ -27,13 +32,13 @@ const Register = () => {
             {/* Card principal */}
             <div className="w-full max-w-6xl bg-white rounded-[40px] shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
-                
+
                 <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-br from-violet-100 to-purple-50 p-12 relative">
 
-            
+
                     <div className="absolute w-[500px] h-[500px] bg-purple-200 opacity-20 rounded-full"></div>
 
-        
+
                     <img
                         src="/src/assets/10783825_19197394.jpg"
                         alt="Shopping"
@@ -41,12 +46,12 @@ const Register = () => {
                     />
                 </div>
 
-            
+
                 <div className="flex items-center justify-center p-8 md:p-14">
 
                     <div className="w-full max-w-md">
 
-                    
+
                         <div className="flex justify-center mb-5">
                             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                                 <svg
@@ -66,7 +71,7 @@ const Register = () => {
                             </div>
                         </div>
 
-                        
+
                         <h2 className="text-4xl font-extrabold text-center text-gray-800">
                             Create Account
                         </h2>
@@ -75,10 +80,10 @@ const Register = () => {
                             Join us and enjoy a better shopping experience.
                         </p>
 
-                        
+
                         <form onSubmit={handleSubmit(onSubmit)}>
 
-                        
+
                             <div className="mb-5">
 
                                 <label className="block mb-2 text-sm font-semibold text-gray-700">
@@ -88,14 +93,13 @@ const Register = () => {
                                 <input
                                     type="text"
                                     placeholder="Enter your full name"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
-                                        errors.nom
-                                            ? "border-red-400"
-                                            : "border-gray-200"
-                                    }`}
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.nom
+                                        ? "border-red-400"
+                                        : "border-gray-200"
+                                        }`}
 
                                     {...register("nom", {
-                                        required: "Tsy maintsy fenoina ny nom",
+                                        required: "Remplir le champ nom",
                                     })}
                                 />
 
@@ -106,7 +110,7 @@ const Register = () => {
                                 )}
                             </div>
 
-                            
+
                             <div className="mb-5">
 
                                 <label className="block mb-2 text-sm font-semibold text-gray-700">
@@ -116,20 +120,24 @@ const Register = () => {
                                 <input
                                     type="email"
                                     placeholder="example@gmail.com"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
-                                        errors.email
-                                            ? "border-red-400"
-                                            : "border-gray-200"
-                                    }`}
-                                    
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.email || serverError
+                                        ? "border-red-400"
+                                        : "border-gray-200"
+                                        }`}
+
                                     {...register("email", {
-                                        required: "Tsy maintsy fenoina ny email",
+                                        required: "Remplir le champ email",
                                     })}
                                 />
 
                                 {errors.email && (
                                     <p className="text-red-500 text-sm mt-2">
                                         {errors.email.message}
+                                    </p>
+                                )}
+                                {serverError && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        {serverError}
                                     </p>
                                 )}
                             </div>
@@ -143,13 +151,12 @@ const Register = () => {
                                 <input
                                     type="text"
                                     placeholder="00000000"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
-                                        errors.telephone
-                                            ? "border-red-400"
-                                            : "border-gray-200"
-                                    }`}
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.telephone
+                                        ? "border-red-400"
+                                        : "border-gray-200"
+                                        }`}
                                     {...register("telephone", {
-                                        required: "Tsy maintsy fenoina ny email",
+                                        required: "Remplir le champ tel",
                                     })}
                                 />
 
@@ -169,13 +176,12 @@ const Register = () => {
                                 <textarea
                                     type="text"
                                     placeholder="lot hub125 Ivanja"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
-                                        errors.adresse
-                                            ? "border-red-400"
-                                            : "border-gray-200"
-                                    }`}
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.adresse
+                                        ? "border-red-400"
+                                        : "border-gray-200"
+                                        }`}
                                     {...register("adresse", {
-                                        required: "Tsy maintsy fenoina ny email",
+                                        required: "Remplir le champ adresse",
                                     })}
                                 />
 
@@ -186,7 +192,7 @@ const Register = () => {
                                 )}
                             </div>
 
-                        
+
                             <div className="mb-8">
 
                                 <label className="block mb-2 text-sm font-semibold text-gray-700">
@@ -196,17 +202,16 @@ const Register = () => {
                                 <input
                                     type="password"
                                     placeholder="••••••••"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${
-                                        errors.password
-                                            ? "border-red-400"
-                                            : "border-gray-200"
-                                    }`}
+                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.password
+                                        ? "border-red-400"
+                                        : "border-gray-200"
+                                        }`}
                                     {...register("password", {
-                                        required: "Tsy maintsy misy password",
+                                        required: "Remplir le champ password",
                                         minLength: {
                                             value: 6,
                                             message:
-                                                "Mila litera 6 farafahakeliny",
+                                                "Minimum 6 lettre",
                                         },
                                     })}
                                 />
@@ -218,7 +223,7 @@ const Register = () => {
                                 )}
                             </div>
 
-                
+
                             <button
                                 type="submit"
                                 className="w-full h-14 rounded-2xl bg-primary text-white text-lg font-semibold hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-primary/30"
@@ -226,7 +231,7 @@ const Register = () => {
                                 Register
                             </button>
 
-                    
+
                             <p className="text-center text-gray-500 mt-6">
                                 Already have an account ?{" "}
                                 <Link to="/Login" className="text-primary font-semibold cursor-pointer hover:underline">

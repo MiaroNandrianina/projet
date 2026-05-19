@@ -6,6 +6,7 @@ import { useState } from "react";
 const Register = () => {
     const [serverError, setServerError] = useState("");
     const usenavigate = useNavigate();
+    const [showPassword, setPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -199,23 +200,27 @@ const Register = () => {
                                     Password
                                 </label>
 
-                                <input
-                                    type="password"
-                                    placeholder="••••••••"
-                                    className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.password
-                                        ? "border-red-400"
-                                        : "border-gray-200"
-                                        }`}
-                                    {...register("password", {
-                                        required: "Remplir le champ password",
-                                        minLength: {
-                                            value: 6,
-                                            message:
-                                                "Minimum 6 lettre",
-                                        },
-                                    })}
-                                />
-
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type={showPassword ? 'text':'password'}
+                                        placeholder="••••••••"
+                                        className={`w-full h-14 px-5 rounded-2xl border bg-gray-50 outline-none transition-all duration-300 focus:border-primary focus:bg-white ${errors.password
+                                            ? "border-red-400"
+                                            : "border-gray-200"
+                                            }`}
+                                        {...register("password", {
+                                            required: "Remplir le champ password",
+                                            minLength: {
+                                                value: 6,
+                                                message:
+                                                    "Minimum 6 lettre",
+                                            },
+                                        })}
+                                    />
+                                    <div className="w-[45px] h-[45px] bg-[#d1d1da] rounded flex justify-center flex-col p-2">
+                                        <i className={`fa-solid text-2xl cursor-pointer ${showPassword?'fa-eye-slash':'fa-eye'}`} onClick={() =>setPassword(!showPassword)}></i>
+                                    </div>
+                                </div>
                                 {errors.password && (
                                     <p className="text-red-500 text-sm mt-2">
                                         {errors.password.message}
